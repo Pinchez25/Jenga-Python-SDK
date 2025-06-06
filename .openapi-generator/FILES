@@ -44,6 +44,7 @@ docs/MPesaStkPushRequestPayment.md
 docs/MPesaStkPushRequestPaymentDetails.md
 docs/MPesaStkPushResponse.md
 docs/MPesaStkPushResponseData.md
+docs/MPesaStkPushResponseDataOrder.md
 docs/MPesaTransactionStatus.md
 docs/MPesaTransactionStatusData.md
 docs/MPesaTransactionStatusDataInvoicesInner.md
@@ -105,6 +106,7 @@ jenga_client/models/m_pesa_stk_push_request_payment.py
 jenga_client/models/m_pesa_stk_push_request_payment_details.py
 jenga_client/models/m_pesa_stk_push_response.py
 jenga_client/models/m_pesa_stk_push_response_data.py
+jenga_client/models/m_pesa_stk_push_response_data_order.py
 jenga_client/models/m_pesa_transaction_status.py
 jenga_client/models/m_pesa_transaction_status_data.py
 jenga_client/models/m_pesa_transaction_status_data_invoices_inner.py
@@ -125,5 +127,5 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_m_pesa_transaction_status_data_invoices_inner.py
+test/test_m_pesa_stk_push_response_data_order.py
 tox.ini

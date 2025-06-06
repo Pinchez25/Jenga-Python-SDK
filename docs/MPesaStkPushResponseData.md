@@ -5,12 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**amount** | **float** | Transaction amount | [optional] 
-**charge** | **float** | Service charge | [optional] 
-**payment_reference** | **str** | Payment reference | [optional] 
-**invoice_number** | **str** | Invoice number | [optional] 
-**order_reference** | **str** | Order reference | [optional] 
-**amount_debited** | **float** | Amount debited | [optional] 
+**order** | [**MPesaStkPushResponseDataOrder**](MPesaStkPushResponseDataOrder.md) |  | [optional] 
+**invoices** | [**List[MPesaTransactionStatusDataInvoicesInner]**](MPesaTransactionStatusDataInvoicesInner.md) |  | [optional] 
 
 ## Example
 

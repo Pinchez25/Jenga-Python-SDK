@@ -17,20 +17,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
-from jenga_client.models.m_pesa_stk_push_response_data_order import MPesaStkPushResponseDataOrder
-from jenga_client.models.m_pesa_transaction_status_data_invoices_inner import MPesaTransactionStatusDataInvoicesInner
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class MPesaStkPushResponseData(BaseModel):
+class MPesaStkPushResponseDataOrder(BaseModel):
     """
-    MPesaStkPushResponseData
+    MPesaStkPushResponseDataOrder
     """ # noqa: E501
-    order: Optional[MPesaStkPushResponseDataOrder] = None
-    invoices: Optional[List[MPesaTransactionStatusDataInvoicesInner]] = None
-    __properties: ClassVar[List[str]] = ["order", "invoices"]
+    order_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Request amount", alias="orderAmount")
+    amount_paid: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Amount paid by customer including service charge", alias="amountPaid")
+    order_reference: Optional[StrictStr] = Field(default=None, description="Order Reference", alias="orderReference")
+    order_status: Optional[StrictStr] = Field(default=None, description="Status of an order (Paid, Pending, Expired)", alias="orderStatus")
+    created_on: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Creation date of the order in EPOC time", alias="createdOn")
+    __properties: ClassVar[List[str]] = ["orderAmount", "amountPaid", "orderReference", "orderStatus", "createdOn"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +51,7 @@ class MPesaStkPushResponseData(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of MPesaStkPushResponseData from a JSON string"""
+        """Create an instance of MPesaStkPushResponseDataOrder from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,21 +72,11 @@ class MPesaStkPushResponseData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of order
-        if self.order:
-            _dict['order'] = self.order.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in invoices (list)
-        _items = []
-        if self.invoices:
-            for _item_invoices in self.invoices:
-                if _item_invoices:
-                    _items.append(_item_invoices.to_dict())
-            _dict['invoices'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of MPesaStkPushResponseData from a dict"""
+        """Create an instance of MPesaStkPushResponseDataOrder from a dict"""
         if obj is None:
             return None
 
@@ -93,8 +84,11 @@ class MPesaStkPushResponseData(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "order": MPesaStkPushResponseDataOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
-            "invoices": [MPesaTransactionStatusDataInvoicesInner.from_dict(_item) for _item in obj["invoices"]] if obj.get("invoices") is not None else None
+            "orderAmount": obj.get("orderAmount"),
+            "amountPaid": obj.get("amountPaid"),
+            "orderReference": obj.get("orderReference"),
+            "orderStatus": obj.get("orderStatus"),
+            "createdOn": obj.get("createdOn")
         })
         return _obj
 

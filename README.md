@@ -161,6 +161,7 @@ Class | Method | HTTP request | Description
  - [MPesaStkPushRequestPaymentDetails](docs/MPesaStkPushRequestPaymentDetails.md)
  - [MPesaStkPushResponse](docs/MPesaStkPushResponse.md)
  - [MPesaStkPushResponseData](docs/MPesaStkPushResponseData.md)
+ - [MPesaStkPushResponseDataOrder](docs/MPesaStkPushResponseDataOrder.md)
  - [MPesaTransactionStatus](docs/MPesaTransactionStatus.md)
  - [MPesaTransactionStatusData](docs/MPesaTransactionStatusData.md)
  - [MPesaTransactionStatusDataInvoicesInner](docs/MPesaTransactionStatusDataInvoicesInner.md)
