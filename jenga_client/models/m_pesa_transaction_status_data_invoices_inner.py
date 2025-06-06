@@ -17,20 +17,24 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
-from jenga_client.models.m_pesa_transaction_status_data_invoices_inner import MPesaTransactionStatusDataInvoicesInner
-from jenga_client.models.m_pesa_transaction_status_data_order import MPesaTransactionStatusDataOrder
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class MPesaTransactionStatusData(BaseModel):
+class MPesaTransactionStatusDataInvoicesInner(BaseModel):
     """
-    MPesaTransactionStatusData
+    MPesaTransactionStatusDataInvoicesInner
     """ # noqa: E501
-    order: Optional[MPesaTransactionStatusDataOrder] = None
-    invoices: Optional[List[MPesaTransactionStatusDataInvoicesInner]] = None
-    __properties: ClassVar[List[str]] = ["order", "invoices"]
+    amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Invoice Amount")
+    amount_debited: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Amount paid by the customer", alias="amountDebited")
+    charge: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Service charge")
+    invoice_status: Optional[StrictStr] = Field(default=None, description="Status of invoice (Pending, Paid, Cancelled, Expired)", alias="invoiceStatus")
+    order_reference: Optional[StrictStr] = Field(default=None, description="Order Reference", alias="orderReference")
+    external_reference: Optional[StrictStr] = Field(default=None, description="Mpesa Reference", alias="externalReference")
+    created_on: Optional[StrictStr] = Field(default=None, description="Date invoice was generated", alias="createdOn")
+    completed_on: Optional[StrictStr] = Field(default=None, description="Date Payment was completed", alias="completedOn")
+    __properties: ClassVar[List[str]] = ["amount", "amountDebited", "charge", "invoiceStatus", "orderReference", "externalReference", "createdOn", "completedOn"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +54,7 @@ class MPesaTransactionStatusData(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of MPesaTransactionStatusData from a JSON string"""
+        """Create an instance of MPesaTransactionStatusDataInvoicesInner from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,21 +75,11 @@ class MPesaTransactionStatusData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of order
-        if self.order:
-            _dict['order'] = self.order.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in invoices (list)
-        _items = []
-        if self.invoices:
-            for _item_invoices in self.invoices:
-                if _item_invoices:
-                    _items.append(_item_invoices.to_dict())
-            _dict['invoices'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of MPesaTransactionStatusData from a dict"""
+        """Create an instance of MPesaTransactionStatusDataInvoicesInner from a dict"""
         if obj is None:
             return None
 
@@ -93,8 +87,14 @@ class MPesaTransactionStatusData(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "order": MPesaTransactionStatusDataOrder.from_dict(obj["order"]) if obj.get("order") is not None else None,
-            "invoices": [MPesaTransactionStatusDataInvoicesInner.from_dict(_item) for _item in obj["invoices"]] if obj.get("invoices") is not None else None
+            "amount": obj.get("amount"),
+            "amountDebited": obj.get("amountDebited"),
+            "charge": obj.get("charge"),
+            "invoiceStatus": obj.get("invoiceStatus"),
+            "orderReference": obj.get("orderReference"),
+            "externalReference": obj.get("externalReference"),
+            "createdOn": obj.get("createdOn"),
+            "completedOn": obj.get("completedOn")
         })
         return _obj
 

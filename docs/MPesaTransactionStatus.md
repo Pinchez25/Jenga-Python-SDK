@@ -5,7 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **bool** |  | [optional] 
+**status** | **bool** | Indicates if the request was successful | [optional] 
+**code** | **str** | Response code indicating status | [optional] 
+**message** | **str** | Description of the response status | [optional] 
 **data** | [**MPesaTransactionStatusData**](MPesaTransactionStatusData.md) |  | [optional] 
 
 ## Example

@@ -26,11 +26,12 @@ class MPesaTransactionStatusDataOrder(BaseModel):
     """
     MPesaTransactionStatusDataOrder
     """ # noqa: E501
-    order_reference: Optional[StrictStr] = Field(default=None, description="Customer reference number", alias="orderReference")
-    status: Optional[StrictStr] = None
-    amount: Optional[Union[StrictFloat, StrictInt]] = None
-    currency: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["orderReference", "status", "amount", "currency"]
+    order_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Request amount", alias="orderAmount")
+    amount_paid: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Amount paid by customer including service charge", alias="amountPaid")
+    order_reference: Optional[StrictStr] = Field(default=None, description="Order Reference", alias="orderReference")
+    order_status: Optional[StrictStr] = Field(default=None, description="Status of an order (Paid, Pending)", alias="orderStatus")
+    created_on: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Creation date of the order in EPOC time", alias="createdOn")
+    __properties: ClassVar[List[str]] = ["orderAmount", "amountPaid", "orderReference", "orderStatus", "createdOn"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,10 +84,11 @@ class MPesaTransactionStatusDataOrder(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "orderAmount": obj.get("orderAmount"),
+            "amountPaid": obj.get("amountPaid"),
             "orderReference": obj.get("orderReference"),
-            "status": obj.get("status"),
-            "amount": obj.get("amount"),
-            "currency": obj.get("currency")
+            "orderStatus": obj.get("orderStatus"),
+            "createdOn": obj.get("createdOn")
         })
         return _obj
 

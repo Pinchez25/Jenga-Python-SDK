@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **order** | [**MPesaTransactionStatusDataOrder**](MPesaTransactionStatusDataOrder.md) |  | [optional] 
+**invoices** | [**List[MPesaTransactionStatusDataInvoicesInner]**](MPesaTransactionStatusDataInvoicesInner.md) |  | [optional] 
 
 ## Example
 

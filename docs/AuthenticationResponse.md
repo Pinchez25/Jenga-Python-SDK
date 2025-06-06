@@ -7,6 +7,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **access_token** | **str** | JWT access token | [optional] 
 **expires_in** | **datetime** | Token expiration timestamp | [optional] 
+**issued_at** | **datetime** | When the token was issued | [optional] 
+**token_type** | **str** | Type of token | [optional] 
+**refresh_token** | **str** | Token used to refresh the access token | [optional] 
 
 ## Example
 

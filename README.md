@@ -163,6 +163,7 @@ Class | Method | HTTP request | Description
  - [MPesaStkPushResponseData](docs/MPesaStkPushResponseData.md)
  - [MPesaTransactionStatus](docs/MPesaTransactionStatus.md)
  - [MPesaTransactionStatusData](docs/MPesaTransactionStatusData.md)
+ - [MPesaTransactionStatusDataInvoicesInner](docs/MPesaTransactionStatusDataInvoicesInner.md)
  - [MPesaTransactionStatusDataOrder](docs/MPesaTransactionStatusDataOrder.md)
  - [PaymentLinkRequest](docs/PaymentLinkRequest.md)
  - [PaymentLinkRequestCustomersInner](docs/PaymentLinkRequestCustomersInner.md)

@@ -29,7 +29,10 @@ class AuthenticationResponse(BaseModel):
     """ # noqa: E501
     access_token: Optional[StrictStr] = Field(default=None, description="JWT access token", alias="accessToken")
     expires_in: Optional[datetime] = Field(default=None, description="Token expiration timestamp", alias="expiresIn")
-    __properties: ClassVar[List[str]] = ["accessToken", "expiresIn"]
+    issued_at: Optional[datetime] = Field(default=None, description="When the token was issued", alias="issuedAt")
+    token_type: Optional[StrictStr] = Field(default=None, description="Type of token", alias="tokenType")
+    refresh_token: Optional[StrictStr] = Field(default=None, description="Token used to refresh the access token", alias="refreshToken")
+    __properties: ClassVar[List[str]] = ["accessToken", "expiresIn", "issuedAt", "tokenType", "refreshToken"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,7 +86,10 @@ class AuthenticationResponse(BaseModel):
 
         _obj = cls.model_validate({
             "accessToken": obj.get("accessToken"),
-            "expiresIn": obj.get("expiresIn")
+            "expiresIn": obj.get("expiresIn"),
+            "issuedAt": obj.get("issuedAt"),
+            "tokenType": obj.get("tokenType"),
+            "refreshToken": obj.get("refreshToken")
         })
         return _obj
 

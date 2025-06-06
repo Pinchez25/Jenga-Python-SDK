@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from jenga_client.models.m_pesa_transaction_status_data import MPesaTransactionStatusData
 from typing import Optional, Set
@@ -27,9 +27,11 @@ class MPesaTransactionStatus(BaseModel):
     """
     MPesaTransactionStatus
     """ # noqa: E501
-    status: Optional[StrictBool] = None
+    status: Optional[StrictBool] = Field(default=None, description="Indicates if the request was successful")
+    code: Optional[StrictStr] = Field(default=None, description="Response code indicating status")
+    message: Optional[StrictStr] = Field(default=None, description="Description of the response status")
     data: Optional[MPesaTransactionStatusData] = None
-    __properties: ClassVar[List[str]] = ["status", "data"]
+    __properties: ClassVar[List[str]] = ["status", "code", "message", "data"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,6 +88,8 @@ class MPesaTransactionStatus(BaseModel):
 
         _obj = cls.model_validate({
             "status": obj.get("status"),
+            "code": obj.get("code"),
+            "message": obj.get("message"),
             "data": MPesaTransactionStatusData.from_dict(obj["data"]) if obj.get("data") is not None else None
         })
         return _obj

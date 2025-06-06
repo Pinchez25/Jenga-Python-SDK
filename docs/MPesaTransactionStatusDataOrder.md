@@ -5,10 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**order_reference** | **str** | Customer reference number | [optional] 
-**status** | **str** |  | [optional] 
-**amount** | **float** |  | [optional] 
-**currency** | **str** |  | [optional] 
+**order_amount** | **float** | Request amount | [optional] 
+**amount_paid** | **float** | Amount paid by customer including service charge | [optional] 
+**order_reference** | **str** | Order Reference | [optional] 
+**order_status** | **str** | Status of an order (Paid, Pending) | [optional] 
+**created_on** | **float** | Creation date of the order in EPOC time | [optional] 
 
 ## Example
 
